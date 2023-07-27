@@ -21,7 +21,7 @@ import com.graphhopper.jsprit.core.problem.AbstractActivity;
 import com.graphhopper.jsprit.core.problem.Capacity;
 import com.graphhopper.jsprit.core.problem.Location;
 
-public final class End extends AbstractActivity implements TourActivity {
+public final class End extends AbstractActivity{
 
     public static End newInstance(String locationId, double earliestArrival, double latestArrival) {
         return new End(locationId, earliestArrival, latestArrival);
@@ -106,10 +106,7 @@ public final class End extends AbstractActivity implements TourActivity {
         return location;
     }
 
-    @Override
-    public double getOperationTime() {
-        return 0.0;
-    }
+
 
 
     @Override
@@ -117,11 +114,6 @@ public final class End extends AbstractActivity implements TourActivity {
         return "[type=" + getName() + "][location=" + location
             + "][twStart=" + Activities.round(theoretical_earliestOperationStartTime)
             + "][twEnd=" + Activities.round(theoretical_latestOperationStartTime) + "]";
-    }
-
-    @Override
-    public String getName() {
-        return "end";
     }
 
     @Override

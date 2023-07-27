@@ -34,4 +34,15 @@ public abstract class AbstractActivity implements TourActivity {
     protected void setIndex(int index) {
         this.index = index;
     }
+
+
+    @Override
+    public String getName() {
+        return "end";
+    }
+
+    @Override
+    public double getOperationTime() {
+        return 0.0;
+    }
 }
