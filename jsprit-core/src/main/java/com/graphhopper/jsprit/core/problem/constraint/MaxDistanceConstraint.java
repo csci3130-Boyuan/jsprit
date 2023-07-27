@@ -102,15 +102,15 @@ public class MaxDistanceConstraint implements HardActivityConstraint {
                 actAfterPickup = iFacts.getRoute().getActivities().get(iIndexOfPickup);
             else
                 actAfterPickup = nextAct;
-            double distanceActBeforePickup2Pickup = distanceCalculator.getDistance(actBeforePickup.getLocation(), pickup.getLocation(), actBeforePickup.getEndTime(), iFacts.getNewVehicle());
+            double distance = distanceCalculator.getDistance(actBeforePickup.getLocation(), pickup.getLocation(), actBeforePickup.getEndTime(), iFacts.getNewVehicle());
             double distancePickup2ActAfterPickup = distanceCalculator.getDistance(pickup.getLocation(), actAfterPickup.getLocation(), iFacts.getRelatedActivityContext().getEndTime(), iFacts.getNewVehicle());
-            double distanceBeforePickup2AfterPickup = distanceCalculator.getDistance(actBeforePickup.getLocation(), actAfterPickup.getLocation(), actBeforePickup.getEndTime(), iFacts.getNewVehicle());
-            if (routeIsEmpty) distanceBeforePickup2AfterPickup = 0;
+            double calculatorDistance = distanceCalculator.getDistance(actBeforePickup.getLocation(), actAfterPickup.getLocation(), actBeforePickup.getEndTime(), iFacts.getNewVehicle());
+            if (routeIsEmpty) calculatorDistance = 0;
             if (actAfterPickup instanceof End && !iFacts.getNewVehicle().isReturnToDepot()) {
                 distancePickup2ActAfterPickup = 0;
-                distanceBeforePickup2AfterPickup = 0;
+                calculatorDistance = 0;
             }
-            additionalDistanceOfPickup = distanceActBeforePickup2Pickup + distancePickup2ActAfterPickup - distanceBeforePickup2AfterPickup;
+            additionalDistanceOfPickup = distance + distancePickup2ActAfterPickup - calculatorDistance;
         }
 
 
