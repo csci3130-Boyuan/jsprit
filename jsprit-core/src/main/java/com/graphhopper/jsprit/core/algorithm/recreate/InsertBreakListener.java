@@ -39,17 +39,23 @@ class InsertBreakListener implements EventListener {
                     insertActivity.getVehicleRoute().getEnd().setLocation(insertActivity.getActivity().getLocation());
                 }
             }
-            VehicleRoute vehicleRoute = ((InsertBreak) event).getVehicleRoute();
-            if (!vehicleRoute.isEmpty()) {
-                if (vehicleRoute.getVehicle() != ((InsertBreak) event).getNewVehicle()) {
-                    if (vehicleRoute.getVehicle().getBreak() != null) {
-                        boolean removed = vehicleRoute.getTourActivities().removeJob(vehicleRoute.getVehicle().getBreak());
-                        if (removed)
-                            logger.trace("remove old break " + vehicleRoute.getVehicle().getBreak());
-                    }
+            showBreak(event);
+            insertActivity.getVehicleRoute().getTourActivities().addActivity(insertActivity.getIndex(), ((InsertBreak) event).getActivity());
+        }
+    }
+
+
+
+    private void showBreak(Event event){
+        VehicleRoute vehicleRoute = ((InsertBreak) event).getVehicleRoute();
+        if (!vehicleRoute.isEmpty()) {
+            if (vehicleRoute.getVehicle() != ((InsertBreak) event).getNewVehicle()) {
+                if (vehicleRoute.getVehicle().getBreak() != null) {
+                    boolean removed = vehicleRoute.getTourActivities().removeJob(vehicleRoute.getVehicle().getBreak());
+                    if (removed)
+                        logger.trace("remove old break " + vehicleRoute.getVehicle().getBreak());
                 }
             }
-            insertActivity.getVehicleRoute().getTourActivities().addActivity(insertActivity.getIndex(), ((InsertBreak) event).getActivity());
         }
     }
 
