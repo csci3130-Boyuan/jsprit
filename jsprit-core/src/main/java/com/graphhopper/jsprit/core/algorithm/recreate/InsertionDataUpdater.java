@@ -31,7 +31,15 @@ import java.util.*;
  */
 class InsertionDataUpdater {
 
-    static boolean update(boolean addAllAvailable, Set<String> initialVehicleIds, VehicleFleetManager fleetManager, JobInsertionCostsCalculator insertionCostsCalculator, TreeSet<VersionedInsertionData> insertionDataSet, int updateRound, Job unassignedJob, Collection<VehicleRoute> routes) {
+    static boolean update(InsertionDataUpdaterContext context) {
+        boolean addAllAvailable = context.isAddAllAvailable();
+        Set<String> initialVehicleIds = context.getInitialVehicleIds();
+        VehicleFleetManager fleetManager = context.getFleetManager();
+        JobInsertionCostsCalculator insertionCostsCalculator = context.getInsertionCostsCalculator();
+        TreeSet<VersionedInsertionData> insertionDataSet = context.getInsertionDataSet();
+        int updateRound = context.getUpdateRound();
+        Job unassignedJob = context.getUnassignedJob();
+        Collection<VehicleRoute> routes = context.getRoutes();
         for(VehicleRoute route : routes) {
             Collection<Vehicle> relevantVehicles = new ArrayList<>();
             if (!(route.getVehicle() instanceof VehicleImpl.NoVehicle)) {
